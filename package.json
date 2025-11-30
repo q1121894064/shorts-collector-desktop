@@ -1,0 +1,57 @@
+{
+  "name": "shorts-collector-desktop",
+  "version": "0.1.0",
+  "description": "YouTube Shorts collector & analyzer - desktop packaged app (Electron + SQLite)",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win --x64",
+    "rebuild-native": "electron-rebuild -f -w better-sqlite3"
+  },
+  "build": {
+    "appId": "com.example.shortscollector",
+    "productName": "ShortsCollector",
+    "files": [
+      "src/**/*",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "asar": false,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-Setup-${version}-win64.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "true",
+      "createStartMenuShortcut": "true"
+    },
+    "npmRebuild": false
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "better-sqlite3": "^8.3.0",
+    "cron": "^2.1.0",
+    "electron-is-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.6.0",
+    "electron-rebuild": "^3.3.5"
+  }
+}
